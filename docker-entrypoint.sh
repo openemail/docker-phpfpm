@@ -16,13 +16,13 @@ done
 # Set a default release format
 
 if [[ -z $(redis-cli --raw -h redis-openemail GET Q_RELEASE_FORMAT) ]]; then
-  redis-cli --raw -h redis-mailcow SET Q_RELEASE_FORMAT raw
+  redis-cli --raw -h redis-openemail SET Q_RELEASE_FORMAT raw
 fi
 
 # Set max age of q items - if unset
 
 if [[ -z $(redis-cli --raw -h redis-openemail GET Q_MAX_AGE) ]]; then
-  redis-cli --raw -h redis-mailcow SET Q_MAX_AGE 365
+  redis-cli --raw -h redis-openemail SET Q_MAX_AGE 365
 fi
 
 # Check of mysql_upgrade
@@ -45,7 +45,7 @@ if [[ ${SQL_UPGRADE_RETURN} == 'warning' ]]; then
     rm /mysql_upgrade_loop
     echo "MySQL was not applied previously, skipping. Restart php-fpm-mailcow to retry or run mysql_upgrade manually."
     while ! mysqladmin status --socket=/var/run/mysqld/mysqld.sock -u${DBUSER} -p${DBPASS} --silent; do
-      echo "Waiting for SQL to return..."
+      echo "Waiting for SQL to retur-n..."
       sleep 2
     done
   fi
