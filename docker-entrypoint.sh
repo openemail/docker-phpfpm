@@ -8,20 +8,20 @@ while ! mysqladmin status --socket=/var/run/mysqld/mysqld.sock -u${DBUSER} -p${D
   sleep 2
 done
 
-until [[ $(redis-cli -h redis-mailcow PING) == "PONG" ]]; do
+until [[ $(redis-cli -h redis-openemail PING) == "PONG" ]]; do
   echo "Waiting for Redis..."
   sleep 2
 done
 
 # Set a default release format
 
-if [[ -z $(redis-cli --raw -h redis-mailcow GET Q_RELEASE_FORMAT) ]]; then
+if [[ -z $(redis-cli --raw -h redis-openemail GET Q_RELEASE_FORMAT) ]]; then
   redis-cli --raw -h redis-mailcow SET Q_RELEASE_FORMAT raw
 fi
 
 # Set max age of q items - if unset
 
-if [[ -z $(redis-cli --raw -h redis-mailcow GET Q_MAX_AGE) ]]; then
+if [[ -z $(redis-cli --raw -h redis-openemail GET Q_MAX_AGE) ]]; then
   redis-cli --raw -h redis-mailcow SET Q_MAX_AGE 365
 fi
 
