@@ -1,5 +1,5 @@
 FROM php:7.3-fpm-alpine3.10
-LABEL maintainer "chinthaka Deshapriya <chinthaka@cybergate.lk>"
+LABEL maintainer "Amila Kothalawala <amila@openemail.io>"
 
 ENV APCU_PECL 5.1.17
 ENV IMAGICK_PECL 3.4.4
@@ -56,6 +56,7 @@ RUN apk add -U --no-cache autoconf \
   && docker-php-ext-configure exif \
   && docker-php-ext-configure gd \
     --with-gd \
+    --enable-gd-native-ttf \
     --with-freetype-dir=/usr/include/ \
     --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
